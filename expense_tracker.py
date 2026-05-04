@@ -9,7 +9,7 @@ DATA_FILE = "expenses.json"
 class ExpenseTracker:
     def init(self, root):
         self.root = root
-        self.root.title("Expense Tracker - Трекер расходов")
+        self.root.title("Expense Tracker — Дзагаштов Мухаммад")
         self.root.geometry("950x700")
 
         self.expenses = self.load_expenses()
@@ -53,7 +53,8 @@ class ExpenseTracker:
         if os.path.exists(DATA_FILE):
             try:
                 with open(DATA_FILE, "r", encoding="utf-8") as f:
-                    return json.load(f)
+                    data = json.load(f)
+                    return data if isinstance(data, list) else []
             except:
                 return []
         return []
@@ -62,9 +63,8 @@ class ExpenseTracker:
         try:
             with open(DATA_FILE, "w", encoding="utf-8") as f:
                 json.dump(self.expenses, f, ensure_ascii=False, indent=4)
-            messagebox.showinfo("Успех", "Данные сохранены в expenses.json")
         except Exception as e:
-            messagebox.showerror("Ошибка", str(e))
+            messagebox.showerror("Ошибка", f"Не удалось сохранить: {str(e)}")
 
     def add_expense(self):
         try:
